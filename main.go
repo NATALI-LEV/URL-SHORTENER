@@ -1,6 +1,10 @@
 package main
 
-import "github.com/NATALI-LEV/URL-SHORTENER/api/routes"
+import (
+	"github.com/NATALI-LEV/URL-SHORTENER/api/routes"
+	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+)
 
 func setupRoutes(app *fiber.App) {
 	app.Get("/:url", routes.ResolveURL)
@@ -8,5 +12,7 @@ func setupRoutes(app *fiber.App) {
 }
 
 func main() {
+	err := godotenv.Load()
+	app := fiber.New()
 
 }
