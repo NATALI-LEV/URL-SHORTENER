@@ -1,6 +1,10 @@
 package routes
 
-import "time"
+import (
+	"time"
+
+	"github.com/gofiber/fiber"
+)
 
 type request struct {
 	URL         string        `json:"url"`
@@ -25,8 +29,20 @@ func ShortenURL(c *fiber.Ctx) error {
 	}
 
 	//implement rate limiting
-	//check if the input is an actual url
-	//check for domain error
-	//enforce https, SSL
 
+	//check if the input is an actual url
+	if !govalidator.IsRequestURL(body.URL) {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid URL",
+		})
+	}
+	//check for domain error
+	if !helpers.RemoveDomainError(body.URL) {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid URL",
+		})
+	}
+
+	//enforce https, SSL
+	body.URL = helpers.EnforceHTTP(body.URL)
 }
