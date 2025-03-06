@@ -7,6 +7,7 @@ import (
 
 	"github.com/NATALI-LEV/URL-SHORTENER/api/database"
 	"github.com/NATALI-LEV/URL-SHORTENER/api/helpers"
+	"github.com/asaskevich/govalidator"
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber"
 	"github.com/google/uuid"
